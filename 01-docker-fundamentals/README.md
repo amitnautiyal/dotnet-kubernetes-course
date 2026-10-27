@@ -4,7 +4,7 @@
 
 Understand the fundamental Docker concepts required to containerize a .NET application and run multiple containers together.
 
-By the end of Day 1, we should understand:
+By the end of this module, we should understand:
 
 1. Docker fundamentals
 2. Image vs Container
@@ -119,8 +119,8 @@ Docker Container
 Create the working directory:
 
 ```powershell
-mkdir dotnet-k8s-lab
-cd dotnet-k8s-lab
+mkdir 01-docker-fundamentals
+cd 01-docker-fundamentals
 ```
 
 Create the ASP.NET Core Web API:
@@ -695,39 +695,7 @@ refer to the container itself.
 
 ---
 
-# 21. What Does `::1` Mean?
-
-IPv6 addresses contain eight groups of hexadecimal numbers.
-
-The IPv6 loopback address is:
-
-```text
-0000:0000:0000:0000:0000:0000:0000:0001
-```
-
-IPv6 allows consecutive zero groups to be compressed:
-
-```text
-::1
-```
-
-Therefore:
-
-```text
-127.0.0.1
-```
-
-is the IPv4 loopback equivalent of:
-
-```text
-::1
-```
-
-for IPv6.
-
----
-
-# 22. Important `localhost` Concept
+# 21. Important `localhost` Concept
 
 Suppose we have:
 
@@ -770,7 +738,7 @@ redis:6379
 
 ---
 
-# 23. Docker Network
+# 22. Docker Network
 
 Create a custom Docker network:
 
@@ -782,7 +750,7 @@ The network provides a private communication environment for containers attached
 
 ---
 
-# 24. List Docker Networks
+# 23. List Docker Networks
 
 ```powershell
 docker network ls
@@ -792,7 +760,7 @@ Shows available Docker networks.
 
 ---
 
-# 25. Inspect a Docker Network
+# 24. Inspect a Docker Network
 
 ```powershell
 docker network inspect orders-network
@@ -802,7 +770,7 @@ Shows detailed information including connected containers.
 
 ---
 
-# 26. Run Redis on the Network
+# 25. Run Redis on the Network
 
 ```powershell
 docker run -d --name redis --network orders-network redis
@@ -818,7 +786,7 @@ connects Redis to our custom network.
 
 ---
 
-# 27. Run the API on the Same Network
+# 26. Run the API on the Same Network
 
 ```powershell
 docker run -d --name orders-api --network orders-network -p 8080:8080 orders-api:day1
@@ -845,7 +813,7 @@ Now:
 
 ---
 
-# 28. Container-to-Container DNS
+# 27. Container-to-Container DNS
 
 Inside the API container:
 
@@ -889,7 +857,7 @@ instead of:
 
 ---
 
-# 29. Why Container Names Are Better Than IP Addresses
+# 28. Why Container Names Are Better Than IP Addresses
 
 Avoid:
 
@@ -931,7 +899,7 @@ Pods
 
 ---
 
-# 30. `getent hosts`
+# 29. `getent hosts`
 
 Command:
 
@@ -957,7 +925,7 @@ This is a useful diagnostic command for container networking.
 
 ---
 
-# 31. Inspect a Container
+# 30. Inspect a Container
 
 ```powershell
 docker inspect orders-api
@@ -978,7 +946,7 @@ When something isn't behaving as expected, `docker inspect` is one of the first 
 
 ---
 
-# 32. Inspect Image History
+# 31. Inspect Image History
 
 ```powershell
 docker history orders-api:day1
@@ -1011,7 +979,7 @@ This becomes important for:
 
 ---
 
-# 33. Why the Initial Dockerfile Isn't Ideal
+# 32. Why the Initial Dockerfile Isn't Ideal
 
 Our first Dockerfile used:
 
@@ -1062,7 +1030,7 @@ RUNTIME ENVIRONMENT
 
 ---
 
-# 34. Multi-Stage Docker Build
+# 33. Multi-Stage Docker Build
 
 Use separate build and runtime stages:
 
@@ -1097,7 +1065,7 @@ docker build -t orders-api:multistage .
 
 ---
 
-# 35. Multi-Stage Build Mental Model
+# 34. Multi-Stage Build Mental Model
 
 ```text
               BUILD STAGE
@@ -1127,7 +1095,7 @@ docker build -t orders-api:multistage .
 
 ---
 
-# 36. `COPY --from`
+# 35. `COPY --from`
 
 This line is critical:
 
@@ -1153,7 +1121,7 @@ The build environment does not become part of the final image.
 
 ---
 
-# 37. Benefits of Multi-Stage Builds
+# 36. Benefits of Multi-Stage Builds
 
 ### Smaller images
 
@@ -1186,7 +1154,7 @@ Runtime environment
 
 ---
 
-# 38. Container Filesystem
+# 37. Container Filesystem
 
 Containers have their own writable filesystem layer.
 
@@ -1222,7 +1190,7 @@ exit
 
 ---
 
-# 39. Stop vs Remove — Filesystem Experiment
+# 38. Stop vs Remove — Filesystem Experiment
 
 Start the same container:
 
@@ -1250,7 +1218,7 @@ Writable filesystem still exists
 
 ---
 
-# 40. Remove the Container
+# 39. Remove the Container
 
 ```powershell
 docker rm -f test-container
@@ -1282,7 +1250,7 @@ Data lost
 
 ---
 
-# 41. Docker Volume
+# 40. Docker Volume
 
 Create a named volume:
 
@@ -1294,7 +1262,7 @@ A volume exists independently of a particular container.
 
 ---
 
-# 42. Run a Container Using a Volume
+# 41. Run a Container Using a Volume
 
 ```powershell
 docker run -it --name test-container --mount source=orders-data,target=/data alpine sh
@@ -1316,7 +1284,7 @@ The data is stored in the Docker volume.
 
 ---
 
-# 43. Remove the Container
+# 42. Remove the Container
 
 ```powershell
 docker rm -f test-container
@@ -1326,7 +1294,7 @@ The volume remains.
 
 ---
 
-# 44. Reuse the Volume
+# 43. Reuse the Volume
 
 Create another container using the same volume:
 
@@ -1350,7 +1318,7 @@ This demonstrates that the data belongs to the volume rather than the container.
 
 ---
 
-# 45. Container Storage vs Volume Storage
+# 44. Container Storage vs Volume Storage
 
 ## Container filesystem
 
@@ -1380,7 +1348,7 @@ New container can reuse it
 
 ---
 
-# 46. List Volumes
+# 45. List Volumes
 
 ```powershell
 docker volume ls
@@ -1390,7 +1358,7 @@ Shows Docker volumes.
 
 ---
 
-# 47. Inspect a Volume
+# 46. Inspect a Volume
 
 ```powershell
 docker volume inspect orders-data
@@ -1400,7 +1368,7 @@ Shows detailed information about the volume.
 
 ---
 
-# 48. Core Day 1 Commands
+# 47. Core module 01 Commands
 
 These are the commands worth remembering.
 
@@ -1443,7 +1411,7 @@ docker volume inspect orders-data
 
 ---
 
-# 49. Day 1 Command Flow
+# 48. Day 1 Command Flow
 
 The overall workflow we practiced:
 
@@ -1491,7 +1459,7 @@ Multi-stage Docker build
 
 ---
 
-# 50. Day 1 Architecture Mental Model
+# 49. Day 1 Architecture Mental Model
 
 ```text
                          SOURCE CODE
@@ -1538,7 +1506,7 @@ Multi-stage Docker build
 
 ---
 
-# 51. Architect-Level Questions
+# 50. Architect-Level Questions
 
 ## Question 1 — Image vs Container
 
@@ -1655,99 +1623,7 @@ Volume
 
 ---
 
-# 52. Important Day 1 Concepts to Retain
-
-Do not try to memorize every Docker command.
-
-Make sure these concepts are solid.
-
-## Image → Container
-
-```text
-Image
-    ↓
-Container
-```
-
----
-
-## Host Port → Container Port
-
-```text
-Host Port
-    ↓
-Container Port
-```
-
-Example:
-
-```text
-9000 → 8080
-```
-
----
-
-## Container → Network
-
-```text
-Container
-    ↓
-Docker Network
-```
-
----
-
-## Container Name → DNS → IP
-
-```text
-Container Name
-       ↓
-Docker DNS
-       ↓
-Container IP
-```
-
----
-
-## localhost
-
-```text
-localhost
-    ↓
-Current container
-```
-
----
-
-## Build vs Runtime
-
-```text
-SDK image
-    ↓
-Build stage
-
-Runtime image
-    ↓
-Production stage
-```
-
----
-
-## Ephemeral vs Persistent Storage
-
-```text
-Container filesystem
-    ↓
-Ephemeral
-
-Docker Volume
-    ↓
-Persistent
-```
-
----
-
-# 53. Connection to Kubernetes
+# 51. Connection to Kubernetes
 
 The concepts learned today map directly to Kubernetes.
 
@@ -1833,37 +1709,7 @@ The Kubernetes model provides a more sophisticated abstraction for persistent st
 
 ---
 
-# 54. Day 1 Final Mental Model
-
-```text
-                    Dockerfile
-                         │
-                         │ docker build
-                         ▼
-                    Docker Image
-                         │
-                         │ docker run
-                         ▼
-                     Container
-                         │
-            ┌────────────┴────────────┐
-            │                         │
-            ▼                         ▼
-         Network                   Storage
-            │                         │
-            ▼                         ▼
-       Docker DNS                 Volume
-            │                         │
-            ▼                         │
-      Container name                  │
-            │                         │
-            ▼                         │
-       Container IP            Persistent Data
-```
-
----
-
-# 55. Day 1 Architect Summary
+# 52. Day 1 Architect Summary
 
 The most important architectural ideas from Day 1 are:
 
@@ -1934,59 +1780,16 @@ Container
     ↓
 Volume
 ```
-
 ---
 
-# 56. Day 1 Completion Checklist
+# Module 01 → Module 02
 
-- [x] Create ASP.NET Core Web API
-- [x] Run .NET application locally
-- [x] Understand Dockerfile
-- [x] Understand `FROM`
-- [x] Understand `WORKDIR`
-- [x] Understand `COPY`
-- [x] Understand `RUN`
-- [x] Understand `ENTRYPOINT`
-- [x] Build Docker image
-- [x] Run Docker container
-- [x] Understand image vs container
-- [x] Understand port mapping
-- [x] Understand container lifecycle
-- [x] Use `docker ps`
-- [x] Use `docker ps -a`
-- [x] Stop/start/remove containers
-- [x] Use `docker exec`
-- [x] Inspect container hostname
-- [x] Understand `/etc/hosts`
-- [x] Understand `127.0.0.1`
-- [x] Understand `::1`
-- [x] Understand `localhost`
-- [x] Create Docker network
-- [x] Connect containers to a network
-- [x] Run Redis
-- [x] Understand container-to-container communication
-- [x] Understand Docker DNS
-- [x] Use `getent hosts`
-- [x] Inspect Docker networks
-- [x] Understand multi-stage builds
-- [x] Use `COPY --from`
-- [x] Understand container filesystem
-- [x] Understand ephemeral storage
-- [x] Create Docker volume
-- [x] Mount a volume
-- [x] Verify persistence after container removal
-- [x] Complete architect checkpoint
+Module 01 established the basic Docker runtime model.
 
----
-
-# Day 1 → Day 2
-
-Day 1 established the basic Docker runtime model.
-
-Day 2 will build on it:
+Module 02 will build on it:
 
 ```text
-DAY 1
+Module 1
 ────────────────────────────
 Application
 Dockerfile
@@ -1998,7 +1801,7 @@ Volumes
 Multi-stage builds
              │
              ▼
-DAY 2
+Module 2
 ────────────────────────────
 Image Layers
 Layer Caching

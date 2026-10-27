@@ -4,7 +4,7 @@ WORKDIR /src
 
 COPY . .
 
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet publish Orders.Api/Orders.Api.csproj -c Release -o /app/publish
 
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
