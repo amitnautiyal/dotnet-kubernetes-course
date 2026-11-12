@@ -56,9 +56,6 @@ CodeCoverage/
 TestResult.xml
 nunit-*.xml
 
-# Learner working directories
-**/work/
-
 # .NET build artifacts
 **/bin/
 **/obj/
