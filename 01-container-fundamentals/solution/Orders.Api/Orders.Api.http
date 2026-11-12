@@ -1,0 +1,30 @@
+@baseUrl = http://localhost:5004
+
+### Get all orders
+GET {{baseUrl}}/api/orders
+
+### Get order by ID
+GET {{baseUrl}}/api/orders/1
+
+### Create a new order
+POST {{baseUrl}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "John Doe",
+  "totalAmount": 3500.00,
+  "status": "Pending"
+}
+
+### Update an order
+PUT {{baseUrl}}/api/orders/1
+Content-Type: application/json
+
+{
+  "customerName": "Jane Smith",
+  "totalAmount": 4000.00,
+  "status": "Completed"
+}
+
+### Delete an order
+DELETE {{baseUrl}}/api/orders/1
