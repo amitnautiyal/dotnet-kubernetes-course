@@ -95,15 +95,15 @@ the engine runs in the Linux container environment.
 
 **Observed in this environment**
 
-  Component                Observed version/details
-  ------------------------ --------------------------
-  Docker CLI               `29.9.3-rd`
-  Client OS/architecture   `windows/amd64`
-  Docker Engine            `29.9.2`
-  Engine OS/architecture   `linux/amd64`
-  Docker API               `1.56`
-  containerd               `2.3.7`
-  runc                     `1.4.3`
+  | Component | Observed version/details |
+  | --- | ---|
+  | Docker CLI | `29.9.3-rd` | 
+  | Client OS/architecture | `windows/amd64` | 
+  | Docker Engine | `29.9.2` | 
+  | Engine OS/architecture | `linux/amd64` | 
+  | Docker API | `1.56` | 
+  | containerd | `2.3.7` | 
+  | runc | `1.4.3` | 
 
 The client and engine patch versions are not identical. That is not, by
 itself, an error; the important readiness signal is that the command can
@@ -165,19 +165,19 @@ The following table records the versions actually observed during this
 environment check. These are environment records, not permanent course
 requirements.
 
-  Component                           Observed version
-  ----------------------------------- ------------------
-  Rancher Desktop                     `1.25.0`
-  rdctl                               `1.25.0`
-  Docker CLI                          `29.9.3-rd`
-  Docker Engine                       `29.9.2`
-  Docker API                          `1.56`
-  containerd                          `2.3.7`
-  runc                                `1.4.3`
-  kubectl client                      `v1.36.5`
-  Kustomize                           `v5.8.1`
-  .NET SDK                            `10.0.404`
-  .NET and ASP.NET Core 10 runtimes   `10.0.15`
+  | Component | Observed version |
+  | --- | --- | 
+  | Rancher Desktop | `1.25.0` | 
+  | rdctl | `1.25.0` | 
+  | Docker CLI | `29.9.3-rd` | 
+  | Docker Engine | `29.9.2` | 
+  | Docker API | `1.56` | 
+  | containerd | `2.3.7` | 
+  | runc | `1.4.3` | 
+  | kubectl client | `v1.36.5` | 
+  | Kustomize | `v5.8.1` | 
+  | .NET SDK | `10.0.404` | 
+  | .NET and ASP.NET Core 10 runtimes | `10.0.15` | 
 
 **Verification boundary:** The kubectl command above checked the client
 only. The Kubernetes cluster/server version was not verified as part of
@@ -198,12 +198,12 @@ docker volume ls
 
 **What the commands do**
 
-  Command               Purpose
-  --------------------- ---------------------------------------
-  `docker ps -a`        Lists running and stopped containers.
-  `docker images`       Lists locally available images.
-  `docker network ls`   Lists Docker networks.
-  `docker volume ls`    Lists Docker volumes.
+  | Command | Purpose |
+  | --- | --- |
+  | `docker ps -a` | Lists running and stopped containers. |
+  | `docker images` | Lists locally available images. |
+  | `docker network ls` | Lists Docker networks. |
+  | `docker volume ls` |  Lists Docker volumes. |
 
 **Expected observation**
 
@@ -373,10 +373,10 @@ both exited successfully.
 
 **Observed in this environment**
 
-  Container                  Container ID prefix   Status
-  -------------------------- --------------------- --------------
-  `module01-hello-world-2`   `133c9d5a1b94`        `Exited (0)`
-  `module01-hello-world`     `20d68abb6f80`        `Exited (0)`
+  | Container | Container ID prefix | Status |
+  | --- |--- |
+  | `module01-hello-world-2` | `133c9d5a1b94` | `Exited (0)` |
+  | `module01-hello-world` | `20d68abb6f80 ` | `Exited (0)` |
 
 **Key takeaway:** An image is not a running container. One image can be
 used to create many containers. Each container has its own identity and
@@ -744,13 +744,10 @@ The following state reflects what was reported after the exercises:
 
   `module01-hello-world-2` container  Stopped; not reported as removed
 
-  `hello-world` image                 Retained locally
+  `hello-world` image                 Retained locally                           
 
-  Named Docker volumes created by     None
-  this part                           
-
-  Rancher Desktop/Kubernetes-managed  Left intact
-  resources                           
+  `Rancher Desktop/Kubernetes-managed resources`  Left intact
+                             
   -----------------------------------------------------------------------
 
 Do not use broad prune commands to clean up the environment. If you
